@@ -5,8 +5,32 @@ export default class Search extends Component {
   constructor() {
     super();
     this.state = {
-      name: "pritamkhose"
+      name: "pritamkhose",
+      page: 1,
     };
+  }
+
+  callWeb() {
+    var url = "https://api.github.com/search/users?q=" + this.state.name + '&page='+ this.state.page; 
+    {
+      fetch(url)
+        .then(res => res.json())
+        .then(
+          result => {
+            this.setState({
+              isLoaded: true,
+              aUserInfo: result
+            });
+            // console.log("working --> " + this.state.aList);
+          },
+          error => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          }
+        );
+    }
   }
 
   showUser() {
@@ -30,15 +54,11 @@ export default class Search extends Component {
           <mat-card-title>
             <mat-form-field class="example-full-width">
               <input
-                matInput
                 type="text"
                 placeholder="Search"
                 id="searchModel"
               />
               <button
-                mat-button
-                matSuffix
-                mat-icon-button
                 aria-label="Clear"
                 onClick={() => this.searchModel()}
               >
@@ -47,7 +67,6 @@ export default class Search extends Component {
             </mat-form-field>
             <span>&nbsp;&nbsp;</span>
             <button
-              mat-raised-button
               color="primary"
               onClick={() => this.callWeb()}
             >
@@ -55,14 +74,14 @@ export default class Search extends Component {
             </button>
           </mat-card-title>
         </header>
-        <div class="row" style="padding: 30px;" />
-        <div class="row" style="padding-left: 30px;">
-          <p class="pstyle" color="normal" onClick={() => this.pagination(aNo)}>
-            {" "}
-            {aNo}{" "}
-          </p>
-        </div>
       </div>
     );
   }
 }
+
+        // <div class="row" style="padding-left: 30px;">
+        //   <p class="pstyle" color="normal" onClick={() => this.pagination()}>
+        //     {" "}
+        //     {aNo}{" "}
+        //   </p>
+        // </div>

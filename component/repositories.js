@@ -107,7 +107,7 @@ export default class Repositories extends Component {
           return (
             <mat-card
               class=".mat-card example-card w3-margin col-sm-5"
-              style={{background: "#fff;"}}
+              // style={{background: "#fff;"}}
               key={aObj.id}
               onClick={() => window.open(aObj.html_url, "_blank")}
             >
